@@ -4,6 +4,9 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,9 +32,26 @@ public class AdmissionController {
     public Admission getAdmissionById(@PathVariable("id") long id){
         return admissionService.getById(id);
     }
+    String msg ="";
     @PostMapping("/post")
-    public List<Admission> postAdmission(@RequestBody Admission admission){
-        return admissionService.post(admission);
+    public ResponseEntity<String> postAdmission(@RequestBody Admission admission){
+        try{
+            if(admission.getFees() < 1000){
+                
+                msg = "Less fess!";
+                return new ResponseEntity<String>(msg,HttpStatus.BAD_GATEWAY);
+            }
+            else{
+                msg = "Data sent Successfully!";
+                admissionService.post(admission);
+               return new ResponseEntity<String>(msg,HttpStatus.OK);          
+            }
+          
+        }catch(Exception e){
+            System.out.println(e);
+        }
+      return null;
+        
     }
     @GetMapping("/update")
     public List<Admission> updateAdmission(@RequestBody Admission admission){

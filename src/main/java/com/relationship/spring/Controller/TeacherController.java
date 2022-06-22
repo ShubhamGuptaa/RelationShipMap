@@ -18,27 +18,30 @@ import com.relationship.spring.Service.TeacherService;
 public class TeacherController {
     @Autowired
     TeacherService teacherService;
-    
 
     @GetMapping("/getAll")
-    public List<Teacher> getAllTeacher(){
+    public List<Teacher> getAllTeacher() {
         return teacherService.getAll();
     }
+
     @GetMapping("/getById/{id}")
-    public Teacher getTeacherById(@PathVariable("id") long id){
+    public Teacher getTeacherById(@PathVariable("id") long id) {
         return teacherService.getById(id);
     }
+
     @PostMapping("/post")
-    public List<Teacher> postTeacher(@RequestBody Teacher teacher){
+    public List<Teacher> postTeacher(@RequestBody Teacher teacher) {
         return teacherService.post(teacher);
     }
+
     @GetMapping("/update")
-    public List<Teacher> updateTeacher(@RequestBody Teacher teacher){
+    public List<Teacher> updateTeacher(@RequestBody Teacher teacher) {
         return teacherService.update(teacher);
     }
+
     @GetMapping("/deleteById/{id}")
-    public String deleteTeacher(@PathVariable("id") long id){
+    public String deleteTeacher(@PathVariable("id") long id) {
         return teacherService.deleteById(id);
     }
-    
+
 }

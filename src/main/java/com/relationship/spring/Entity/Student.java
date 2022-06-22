@@ -2,12 +2,19 @@ package com.relationship.spring.Entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+
 @Entity
 public class Student {
     @Id
@@ -18,11 +25,17 @@ public class Student {
     private int age;
     @Column
     private long salary;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    // @JoinColumn
+    // @OnDelete(action = OnDeleteAction.CASCADE)
     private Admission admission;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    // @JoinColumn
+    // @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Address> address;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    // @JoinColumn
+    // @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Teacher> teacher;
     public Student() {
     }
@@ -81,3 +94,7 @@ public class Student {
     
 
 }
+
+
+
+
